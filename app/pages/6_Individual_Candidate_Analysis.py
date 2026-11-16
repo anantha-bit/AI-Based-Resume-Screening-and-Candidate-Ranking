@@ -15,6 +15,7 @@ import streamlit as st
 import plotly.graph_objects as go
 from src.storage.database import DatabaseManager
 from src.reporting.pdf_exporter import CandidatePDFExporter
+from src.reporting.archive_manager import ArchiveManager
 
 st.set_page_config(page_title="Candidate Dossier | AI Screening", page_icon="📋", layout="wide")
 
@@ -57,15 +58,31 @@ with c_head1:
         st.caption(contact_str)
 
 with c_head2:
-    # PDF Export Button
+    # PDF Dossier Export Button
     pdf_bytes = CandidatePDFExporter.generate_pdf_bytes(cand)
     st.download_button(
         label="📄 Export Dossier as PDF",
         data=pdf_bytes,
         file_name=f"Dossier_{cand['candidate_id']}_{cand['candidate_name'].replace(' ', '_')}.pdf",
         mime="application/pdf",
-        type="primary"
+        type="primary",
+        use_container_width=True
     )
+    
+    # Original Native Resume Document Download
+    res_file_name = resume_obj.get("file_name", "")
+    if res_file_name:
+        f_data = ArchiveManager.get_resume_file_data(res_file_name)
+        if f_data:
+            raw_b, m_type = f_data
+            ext_label = os.path.splitext(res_file_name)[1].upper().replace(".", "")
+            st.download_button(
+                label=f"📥 Download Resume ({ext_label})",
+                data=raw_b,
+                file_name=res_file_name,
+                mime=m_type,
+                use_container_width=True
+            )
 
 st.markdown("---")
 

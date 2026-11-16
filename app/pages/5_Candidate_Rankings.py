@@ -14,6 +14,7 @@ if PROJECT_ROOT not in sys.path:
 import streamlit as st
 import pandas as pd
 from src.storage.database import DatabaseManager
+from src.reporting.archive_manager import ArchiveManager
 
 st.set_page_config(page_title="Candidate Rankings | AI Screening", page_icon="🏆", layout="wide")
 
@@ -117,22 +118,33 @@ st.dataframe(
     hide_index=True
 )
 
-# Export Section
-c_exp1, c_exp2 = st.columns([1, 1])
+# Export & Resume Download Section
+c_exp1, c_exp2, c_exp3 = st.columns([1, 1, 1])
 with c_exp1:
     csv = disp_df.to_csv(index=False).encode('utf-8')
     st.download_button(
         "📥 Download Leaderboard as CSV",
         data=csv,
         file_name=f"rankings_{selected_jd_id}.csv",
-        mime="text/csv"
+        mime="text/csv",
+        use_container_width=True
     )
 
 with c_exp2:
+    zip_bytes = ArchiveManager.create_resumes_zip_bytes()
+    st.download_button(
+        "📦 Download All 32 Resumes (.ZIP)",
+        data=zip_bytes,
+        file_name="All_32_Candidate_Resumes.zip",
+        mime="application/zip",
+        use_container_width=True
+    )
+
+with c_exp3:
     selected_for_dossier = st.selectbox(
         "Select Candidate for In-Depth Dossier Analysis:",
         options=disp_df["Candidate ID"].tolist() if not disp_df.empty else []
     )
-    if st.button("🔍 Open In-Depth Candidate Analysis"):
+    if st.button("🔍 Open In-Depth Candidate Analysis", use_container_width=True):
         st.session_state["target_candidate_id"] = selected_for_dossier
         st.switch_page("pages/6_Individual_Candidate_Analysis.py")

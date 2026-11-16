@@ -102,9 +102,9 @@ with c1:
 
 with c2:
     with st.container(border=True):
-        st.markdown("### 📂 Resume Upload & Parsing")
-        st.write("Batch upload resumes in PDF, DOCX, or TXT. Automatic section segmentation and entity extraction without crashes.")
-        st.page_link("pages/3_Upload_Resumes.py", label="Upload Resumes →", icon="📤")
+        st.markdown("### 📂 Resume Ingestion & Catalog")
+        st.write("Batch upload resumes or download all 32 candidate benchmark resumes (.ZIP or single files in PDF, DOCX, TXT). Automatic section segmentation.")
+        st.page_link("pages/3_Upload_Resumes.py", label="Manage & Download Resumes →", icon="📤")
 
     with st.container(border=True):
         st.markdown("### 👤 Individual Candidate Dossier")

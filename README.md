@@ -181,11 +181,29 @@ pip install -r requirements.txt
 ```bash
 python run.py
 ```
-*Or alternatively:*
+*Or alternatively using the Streamlit CLI:*
 ```bash
 streamlit run app/main.py
 ```
-The web application will open at `http://localhost:8501`.
+
+By default, Streamlit binds to **`http://localhost:8501`**. If port 8501 is already occupied by a background or previous process, Streamlit will automatically launch on **`http://localhost:8502`**.
+
+> **Explicit Port Configuration:**  
+> To explicitly specify your target port:
+> ```bash
+> # Force run on Port 8501:
+> streamlit run app/main.py --server.port 8501
+>
+> # Or force run on Port 8502:
+> streamlit run app/main.py --server.port 8502
+> ```
+
+---
+
+### 📥 Downloading Candidate Resumes (All 32 Profiles)
+The platform includes built-in download facilities accessible directly through the web UI:
+- **Bulk Download:** On **Page 3 (Resume Ingestion & Batch Document Processing)** or **Page 5 (Candidate Rankings)**, click **`Download All 32 Resumes (.ZIP)`** to retrieve all 32 candidate resumes (12 PDFs, 10 DOCXs, 10 TXTs) in a single compressed archive.
+- **Single Resume Download:** Select any candidate from the interactive dropdown on **Page 3** or on **Page 6 (Individual Candidate Analysis)** to download their native `.pdf`, `.docx`, or `.txt` resume document or their structured JSON profile.
 
 ### 3. Run Automated Tests
 ```bash
