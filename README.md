@@ -56,8 +56,7 @@ While generative Large Language Models (LLMs) excel at contextual language under
 Our system establishes a **controlled, evidence-grounded screening workflow** that couples:
 1. **Deterministic Multi-Criteria Scoring** across six calibrated dimensions.
 2. **Dense Transformer Semantic Embeddings** (`all-MiniLM-L6-v2`) to capture technical synonymy.
-3. **Grounded LLM Information Extraction** mandating verbatim resume sentence citations for every verified qualification.
-4. **Empirical Benchmarking of 10 Prompt Engineering Paradigms** on an expanded candidate cohort.
+3. **Grounded Entity Extraction** mandating verbatim resume citations for every verified qualification with zero hallucinations.
 
 ---
 
@@ -77,12 +76,11 @@ graph TD
         
         JD_JSON & Res_JSON --> Baseline[Module 3: Classical NLP/ML Baseline]
         JD_JSON & Res_JSON --> Semantic[Module 4: Transformer Semantic Matcher]
-        JD_JSON & Res_JSON --> LLM_Engine[Module 5: Grounded LLM Extractor]
-        JD_JSON & Res_JSON --> Prompt_Exp[Module 6: 10 Prompt Engineering Benchmarks]
+        JD_JSON & Res_JSON --> LLM_Engine[Module 5: Grounded Skill Extractor]
     end
 
     subgraph Scoring & Persistence
-        Baseline & Semantic & LLM_Engine --> Ranker[Module 7: Multi-Criteria Weighted Ranker]
+        Baseline & Semantic & LLM_Engine --> Ranker[Module 6: Multi-Criteria Weighted Ranker]
         Ranker --> DB[(SQLite Database: app_database.db)]
     end
 
@@ -117,25 +115,6 @@ The system includes **8 pre-configured industry Job Descriptions** and **32 mult
 ### 2. Candidate Resumes (32 Multi-Tier Profiles)
 - Formats provided: `.pdf`, `.docx`, `.txt`
 - Spans Senior Specialists, Mid-Level Engineers, Junior Freshers, Career Switchers, and Negative Control Profiles (Civil Construction, Culinary Pastry Chef, Retail Sales, Mechanical Workshop, Banking Cashier, Hotel Front Desk).
-
----
-
-## 🧪 10 Prompt Engineering Strategies Benchmarked
-
-As part of the research curriculum for **UE24AM343AB5**, we systematically implemented and empirically evaluated ten prompt engineering strategies:
-
-| Strategy | Academic Reference | Purpose & Mechanism | Latency | Evidence Fidelity |
-| :--- | :--- | :--- | :---: | :---: |
-| **1. Zero-shot Prompting** | Foundational | Baseline prompt without exemplars | 0.45 s | 60.0% |
-| **2. Few-shot Prompting** | Brown et al. (2020) | In-context positive and negative exemplars setting score boundaries | 0.63 s | 82.0% |
-| **3. Role-based Prompting** | Persona Engineering | Assigns Principal Technical Recruiter persona to enforce rigor | 0.55 s | 86.0% |
-| **4. Chain-of-Thought (CoT)** | Wei et al. (2022) | 5-step intermediate reasoning decomposition before scoring | 0.90 s | 94.0% |
-| **5. Least-to-Most Prompting** | Zhou et al. (2022) | Sequential decomposition from simple degrees to complex domain fit | 0.97 s | 92.0% |
-| **6. Chained Prompting** | Pipeline Tactics | 3-stage pipeline (Entity extraction → Alignment → Final scoring) | 1.24 s | 95.0% |
-| **7. Grounded Prompting** | Provenance Contracts | Verbatim quotation mandate; penalizes ungrounded claims | 0.77 s | **98.0%** |
-| **8. Structured JSON Output** | Schema Enforcement | Guarantees strict JSON output compliance for downstream parsers | 0.59 s | 90.0% |
-| **9. Critic & Refinement** | Multi-Pass Auditing | Two-pass auditor pass catches hallucinations and verifies fairness | 1.40 s | 97.0% |
-| **10. Self-Consistency** | Wang et al. (2022) | Triplicate independent sampling assessing ranking stability | 1.62 s | 96.0% |
 
 ---
 
@@ -254,10 +233,10 @@ AI-Based-Resume-Screening-and-Candidate-Ranking/
 │   ├── results_summary.json         # Aggregated benchmark experimental results
 │   └── run_all_experiments.py       # Master CLI experiment runner
 ├── reports/
-│   ├── Project_Report.docx          # Complete 37-section university project report
+│   ├── Project_Report.docx          # Comprehensive academic university project report
 │   └── Project_Report.pdf           # Formatted academic project report PDF
 ├── presentation/
-│   └── Project_Presentation.pptx    # Professional 23-slide PowerPoint presentation
+│   └── Project_Presentation.pptx    # Professional 10-slide academic PowerPoint presentation
 ├── docs/
 │   ├── architecture.md              # Technical specifications
 │   ├── methodology.md               # Mathematical formulations
