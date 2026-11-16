@@ -233,9 +233,7 @@ AI-Based-Resume-Screening-and-Candidate-Ranking/
 │       ├── 3_Upload_Resumes.py      # Batch PDF/DOCX resume ingestion
 │       ├── 4_Candidate_Screening.py # Configurable weight screening runner
 │       ├── 5_Candidate_Rankings.py  # Sortable leaderboard & CSV export
-│       ├── 6_Individual_Candidate_Analysis.py # Radar profile & PDF dossier
-│       ├── 7_Prompt_Engineering_Experiments.py # 10-strategy prompt benchmark
-│       └── 8_Evaluation_Dashboard.py # Confusion matrices, NDCG@K, MRR
+│       └── 6_Individual_Candidate_Analysis.py # Radar profile & PDF dossier
 ├── src/
 │   ├── preprocessing/               # Text cleaning, contact extraction, loaders
 │   ├── extraction/                  # Skill taxonomy (500+ skills), JD/resume parsers

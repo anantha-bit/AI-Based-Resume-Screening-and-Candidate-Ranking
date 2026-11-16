@@ -64,14 +64,13 @@ st.sidebar.markdown("""
 
 # Main Content Header
 st.markdown('<div class="main-header">🎯 AI-Based Resume Screening & Candidate Ranking</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">An explainable, evidence-grounded recruitment intelligence platform comparing Classical NLP, Transformer Semantic Embeddings, and 10 Prompt Engineering Strategies.</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">An explainable, evidence-grounded recruitment intelligence platform comparing Classical NLP and Transformer Semantic Embeddings.</div>', unsafe_allow_html=True)
 
 # System Health & Database Status
 db = DatabaseManager()
 jds = db.get_all_job_descriptions()
 resumes = db.get_all_resumes()
 screenings = db.get_latest_screening_results()
-experiments = db.get_experiment_summary()
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
@@ -81,7 +80,7 @@ with col2:
 with col3:
     st.metric("Candidates Screened", len(screenings))
 with col4:
-    st.metric("Prompt Benchmarks", len(experiments))
+    st.metric("Document Formats", "PDF, DOCX, TXT")
 
 st.markdown("---")
 
@@ -91,14 +90,14 @@ st.subheader("📌 System Architecture & Core Modules")
 c1, c2, c3 = st.columns(3)
 with c1:
     with st.container(border=True):
+        st.markdown("### 📊 Executive Dashboard")
+        st.write("Real-time candidate score distributions, recommendation tier breakdowns, and top-tier talent metrics.")
+        st.page_link("pages/1_Dashboard.py", label="Open Dashboard →", icon="📊")
+
+    with st.container(border=True):
         st.markdown("### 📄 Job Description Analysis")
         st.write("Browse role catalog, extract technical skills, mandatory vs optional criteria, education, and experience into structured JSON.")
         st.page_link("pages/2_Job_Description_Analysis.py", label="Open JD Analysis →", icon="🔍")
-
-    with st.container(border=True):
-        st.markdown("### 📊 Candidate Rankings")
-        st.write("Sortable leaderboard with multi-criteria weighted scoring, transparent explanations, and recruiter action badges.")
-        st.page_link("pages/5_Candidate_Rankings.py", label="View Rankings →", icon="🏆")
 
 with c2:
     with st.container(border=True):
@@ -107,28 +106,20 @@ with c2:
         st.page_link("pages/3_Upload_Resumes.py", label="Manage & Download Resumes →", icon="📤")
 
     with st.container(border=True):
-        st.markdown("### 👤 Individual Candidate Dossier")
-        st.write("In-depth candidate radar analysis, verbatim evidence citations, gap analysis, and one-click PDF export.")
-        st.page_link("pages/6_Individual_Candidate_Analysis.py", label="Examine Candidate →", icon="📋")
-
-with c3:
-    with st.container(border=True):
         st.markdown("### ⚙️ Candidate Screening Engine")
         st.write("Execute real-time screening runs with configurable weights across skills, education, experience, and semantic fit.")
         st.page_link("pages/4_Candidate_Screening.py", label="Run Screening →", icon="⚡")
 
+with c3:
     with st.container(border=True):
-        st.markdown("### 🧪 Prompt Engineering Suite")
-        st.write("Benchmark 10 prompt strategies (Zero-shot, Few-shot, CoT, Grounded, JSON, Chaining, Refinement, Self-Consistency).")
-        st.page_link("pages/7_Prompt_Engineering_Experiments.py", label="Run Experiments →", icon="🧪")
+        st.markdown("### 🏆 Candidate Rankings")
+        st.write("Sortable leaderboard with multi-criteria weighted scoring, transparent explanations, and recruiter action badges.")
+        st.page_link("pages/5_Candidate_Rankings.py", label="View Rankings →", icon="🏆")
+
+    with st.container(border=True):
+        st.markdown("### 👤 Individual Candidate Dossier")
+        st.write("In-depth candidate radar analysis, verbatim evidence citations, gap analysis, and one-click PDF export.")
+        st.page_link("pages/6_Individual_Candidate_Analysis.py", label="Examine Candidate →", icon="📋")
 
 st.markdown("---")
-
-# Bottom Highlights
-c_eval1, c_eval2 = st.columns([2, 1])
-with c_eval1:
-    st.info("💡 **Getting Started:** Navigate to **Job Description Analysis** to inspect or switch role catalog items, then proceed to **Candidate Screening** or explore **Prompt Engineering Experiments**.")
-with c_eval2:
-    with st.container(border=True):
-        st.markdown("#### 📈 Academic Evaluation")
-        st.page_link("pages/8_Evaluation_Dashboard.py", label="Open IR Metrics Dashboard →", icon="📊")
+st.info("💡 **Getting Started:** Select **Job Description Analysis** from the sidebar or above to choose a target requisition, then proceed to **Candidate Screening** and **Candidate Rankings** to evaluate candidates.")
