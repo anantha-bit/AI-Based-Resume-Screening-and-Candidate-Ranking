@@ -1,0 +1,27 @@
+Rohan Verma
+Bengaluru, India | rohan.verma@email.com | +91 97765 12345
+GitHub: github.com/rohan-v
+
+CAREER OBJECTIVE
+Enthusiastic Junior Machine Learning Engineer with 2 years of experience building predictive models in Python and Scikit-Learn. Seeking to apply NLP and deep learning fundamentals to real-world AI challenges.
+
+TECHNICAL SKILLS
+- Languages: Python, SQL
+- ML & Data Science: Scikit-Learn, Pandas, NumPy, Machine Learning, basic PyTorch, Matplotlib
+- Tools: Git, Docker, Linux, Jupyter Notebooks
+
+PROFESSIONAL EXPERIENCE
+Associate ML Engineer | TechSpire Infotech | 2023 - Present
+- Built regression and classification models using Scikit-Learn and Pandas.
+- Processed and cleaned tabular datasets using SQL queries and feature engineering techniques.
+- Experimented with Hugging Face BERT models for text classification tasks.
+
+EDUCATION
+Bachelor of Technology in Computer Science | PES University | 2023
+
+PROJECTS
+- Customer Review Sentiment Classifier: Trained an NLP pipeline using TF-IDF and Logistic Regression.
+- House Price Prediction: Applied XGBoost and Random Forest algorithms on housing data.
+
+CERTIFICATIONS
+- Scikit-Learn Machine Learning Certificate

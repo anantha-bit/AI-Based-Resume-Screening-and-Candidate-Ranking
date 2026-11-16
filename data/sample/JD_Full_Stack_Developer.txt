@@ -1,0 +1,26 @@
+Job Title: Full Stack Software Developer
+Department: Engineering
+Location: Bengaluru, India
+
+About the Role:
+We are looking for a skilled Full Stack Software Developer to build high-performance web applications. You will create modern user interfaces using React and robust backend microservices with Python and FastAPI.
+
+Key Responsibilities:
+- Develop interactive, accessible web applications using React, TypeScript, and Tailwind CSS.
+- Architect scalable RESTful APIs and backend services using Python, FastAPI, and PostgreSQL.
+- Implement robust database schemas, indexing, and SQL query optimizations.
+- Maintain automated CI/CD pipelines using GitHub Actions and Docker.
+- Write clean unit tests and conduct peer code reviews.
+
+Minimum Qualifications (Required):
+- Bachelor's degree in Computer Science, Software Engineering, or equivalent experience.
+- 3+ years of experience in full-stack web development.
+- Strong proficiency in JavaScript, TypeScript, and React.
+- Solid experience building backend services with Python, FastAPI, or Django.
+- Hands-on experience with PostgreSQL and relational database design.
+- Familiarity with Git, REST APIs, and Docker.
+
+Preferred Qualifications (Nice to Have):
+- Experience with Next.js, Redis, and WebSockets.
+- Knowledge of cloud deployment on AWS or Google Cloud.
+- Familiarity with Streamlit for internal tooling.

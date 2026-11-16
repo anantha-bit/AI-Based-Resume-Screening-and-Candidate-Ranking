@@ -1,0 +1,26 @@
+Job Title: Data Analyst / Business Intelligence Specialist
+Department: Business Intelligence & Operations
+Location: Bengaluru, India
+
+About the Role:
+We are looking for a Data Analyst to transform complex datasets into actionable strategic business insights. You will design interactive dashboards, conduct exploratory data analysis, and evaluate A/B test experiments.
+
+Key Responsibilities:
+- Extract, clean, and analyze enterprise datasets using advanced SQL and Python (Pandas, NumPy).
+- Design and maintain interactive executive dashboards using Power BI and Tableau.
+- Perform exploratory data analysis (EDA) to uncover trends and operational bottlenecks.
+- Formulate and test statistical hypotheses to measure business performance and user retention.
+- Present data-driven findings clearly to cross-functional stakeholders.
+
+Minimum Qualifications (Required):
+- Bachelor's degree in Data Science, Statistics, Mathematics, Economics, or Computer Science.
+- 2+ years of professional experience in data analysis or business intelligence.
+- Advanced SQL skills (joins, window functions, CTEs, aggregation).
+- Strong proficiency in Python, Pandas, and NumPy for data manipulation.
+- Extensive experience designing dashboards in Power BI or Tableau.
+- Solid foundation in descriptive statistics and probability.
+
+Preferred Qualifications (Nice to Have):
+- Experience with Plotly, Seaborn, and Excel financial modeling.
+- Exposure to cloud data warehouses such as BigQuery or Snowflake.
+- Knowledge of machine learning basics and predictive modeling.

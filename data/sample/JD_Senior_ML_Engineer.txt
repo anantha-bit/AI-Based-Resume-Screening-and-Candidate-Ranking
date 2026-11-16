@@ -1,0 +1,26 @@
+Job Title: Senior Machine Learning Engineer
+Department: Artificial Intelligence & Research
+Location: Bengaluru, India (Hybrid)
+
+About the Role:
+We are seeking an experienced Senior Machine Learning Engineer to lead the design and deployment of modern GenAI and deep learning systems. You will architect transformer-based NLP models, fine-tune Large Language Models, and build low-latency retrieval pipelines.
+
+Key Responsibilities:
+- Design, train, and deploy transformer architectures and LLMs for production NLP applications.
+- Build and optimize Retrieval-Augmented Generation (RAG) pipelines using vector databases (FAISS, Chroma).
+- Lead end-to-end machine learning lifecycle from feature engineering to model monitoring.
+- Collaborate with software engineers to integrate ML models into microservices using FastAPI and Docker.
+- Mentor junior engineers and champion clean code and rigorous experimentation.
+
+Minimum Qualifications (Required):
+- Bachelor's or Master's degree in Computer Science, AI/ML, or related technical field.
+- 4+ years of professional industry experience in machine learning and data science.
+- Strong proficiency in Python, PyTorch, and Scikit-Learn.
+- Demonstrated experience with Hugging Face Transformers, BERT, and Large Language Models.
+- Deep expertise in Natural Language Processing (NLP), text embeddings, and vector similarity search.
+- Solid understanding of SQL and relational databases.
+
+Preferred Qualifications (Nice to Have):
+- Experience with LangChain, LlamaIndex, or agentic GenAI frameworks.
+- Familiarity with cloud platforms (AWS, GCP) and containerization (Docker, Kubernetes).
+- Prior experience in prompt engineering, fine-tuning, and model distillation.

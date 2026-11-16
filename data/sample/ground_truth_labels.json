@@ -1,0 +1,144 @@
+{
+  "dataset_name": "PES University AI Screening Benchmark Dataset",
+  "description": "Curated benchmark dataset containing 15 candidates mapped across 3 job descriptions for academic evaluation.",
+  "attribution": "Aligned with Kaggle Resume Dataset & PES University UE24AM343AB5 evaluation standards.",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+  "records_count": 15,
+  "candidates": [
+    {
+      "candidate_id": "CAND-01",
+      "candidate_name": "Arjun Sharma",
+      "file_name": "Resume_Arjun_Sharma.pdf",
+      "target_jd_id": "JD-01",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (Senior ML)"
+    },
+    {
+      "candidate_id": "CAND-02",
+      "candidate_name": "Priya Nair",
+      "file_name": "Resume_Priya_Nair.docx",
+      "target_jd_id": "JD-01",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (NLP Specialist)"
+    },
+    {
+      "candidate_id": "CAND-03",
+      "candidate_name": "Rohan Verma",
+      "file_name": "Resume_Rohan_Verma.txt",
+      "target_jd_id": "JD-01",
+      "ground_truth_relevance": 2.0,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (Junior ML)"
+    },
+    {
+      "candidate_id": "CAND-04",
+      "candidate_name": "Sneha Kulkarni",
+      "file_name": "Resume_Sneha_Kulkarni.pdf",
+      "target_jd_id": "JD-02",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (Full Stack Web)"
+    },
+    {
+      "candidate_id": "CAND-05",
+      "candidate_name": "Vikram Rao",
+      "file_name": "Resume_Vikram_Rao.docx",
+      "target_jd_id": "JD-02",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (Backend Focused)"
+    },
+    {
+      "candidate_id": "CAND-06",
+      "candidate_name": "Ananya Deshmukh",
+      "file_name": "Resume_Ananya_Deshmukh.pdf",
+      "target_jd_id": "JD-03",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (Data Analyst)"
+    },
+    {
+      "candidate_id": "CAND-07",
+      "candidate_name": "Rahul Mehta",
+      "file_name": "Resume_Rahul_Mehta.txt",
+      "target_jd_id": "JD-03",
+      "ground_truth_relevance": 2.0,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (Junior Analyst)"
+    },
+    {
+      "candidate_id": "CAND-08",
+      "candidate_name": "Kavya Iyer",
+      "file_name": "Resume_Kavya_Iyer.pdf",
+      "target_jd_id": "JD-01",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Career Switcher (Data Science to GenAI)"
+    },
+    {
+      "candidate_id": "CAND-09",
+      "candidate_name": "Aditya Sen",
+      "file_name": "Resume_Aditya_Sen.docx",
+      "target_jd_id": "JD-02",
+      "ground_truth_relevance": 2.0,
+      "ground_truth_label": 1,
+      "category": "Frontend Specialist (Gap in Backend)"
+    },
+    {
+      "candidate_id": "CAND-10",
+      "candidate_name": "Divya Hegde",
+      "file_name": "Resume_Divya_Hegde.pdf",
+      "target_jd_id": "JD-01",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (AI & Deep Learning)"
+    },
+    {
+      "candidate_id": "CAND-11",
+      "candidate_name": "Manish Kumar",
+      "file_name": "Resume_Manish_Kumar.txt",
+      "target_jd_id": "JD-02",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Full Stack Junior"
+    },
+    {
+      "candidate_id": "CAND-12",
+      "candidate_name": "Pooja Patel",
+      "file_name": "Resume_Pooja_Patel.docx",
+      "target_jd_id": "JD-03",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Data Analyst (Tableau / SQL)"
+    },
+    {
+      "candidate_id": "CAND-13",
+      "candidate_name": "Suresh Reddy",
+      "file_name": "Resume_Suresh_Reddy_Control.pdf",
+      "target_jd_id": "JD-01",
+      "ground_truth_relevance": 0.0,
+      "ground_truth_label": 0,
+      "category": "Negative Control (Civil Construction)"
+    },
+    {
+      "candidate_id": "CAND-14",
+      "candidate_name": "Meera Joshi",
+      "file_name": "Resume_Meera_Joshi_Control.docx",
+      "target_jd_id": "JD-01",
+      "ground_truth_relevance": 0.0,
+      "ground_truth_label": 0,
+      "category": "Negative Control (Culinary Arts)"
+    },
+    {
+      "candidate_id": "CAND-15",
+      "candidate_name": "Kiran Kumar",
+      "file_name": "Resume_Kiran_Kumar_Control.txt",
+      "target_jd_id": "JD-02",
+      "ground_truth_relevance": 0.0,
+      "ground_truth_label": 0,
+      "category": "Negative Control (Retail Sales)"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+Rahul Mehta
+Bengaluru, India | rahul.mehta@email.com | +91 98888 77766
+
+OBJECTIVE
+Motivated Junior Data Analyst with 1.5 years of experience in data extraction, SQL, and Excel reporting. Seeking to leverage skills in Python and Tableau.
+
+SKILLS
+- Tools: SQL, Excel, Tableau, basic Power BI
+- Programming: Python, Pandas, Matplotlib
+- Concepts: Data Cleaning, Descriptive Statistics, Reporting
+
+WORK EXPERIENCE
+Junior Analyst | MetricGlobal | 2023 - Present
+- Queried MySQL relational databases to extract operational performance metrics.
+- Built monthly KPI reports in Excel and created prototype dashboards in Tableau.
+- Performed preliminary data cleaning using Python Pandas scripts.
+
+EDUCATION
+Bachelor of Commerce in Analytics | Bangalore University | 2023
+
+PROJECTS
+- Sales Performance Analysis: Built Tableau visual workbook analyzing regional retail sales.

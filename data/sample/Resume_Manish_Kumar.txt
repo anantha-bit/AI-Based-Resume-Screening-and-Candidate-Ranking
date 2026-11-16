@@ -1,0 +1,18 @@
+Manish Kumar
+Bengaluru, India | manish.k@email.com | +91 97400 55667
+
+SUMMARY
+Junior Full Stack Developer with 1.5 years experience in React, JavaScript, and Python FastAPI development.
+
+SKILLS
+- Frontend: React, JavaScript, HTML, CSS
+- Backend: Python, FastAPI, SQLite, PostgreSQL
+- Tools: Git, Postman
+
+EXPERIENCE
+Junior Web Developer | Startify Apps | 2023 - Present
+- Implemented user dashboard screens using React and CSS.
+- Wrote basic backend API routes in Python with FastAPI and PostgreSQL.
+
+EDUCATION
+Bachelor of Technology in Information Technology | PES University | 2023
