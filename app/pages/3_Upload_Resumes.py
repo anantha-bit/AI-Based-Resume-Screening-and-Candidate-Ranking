@@ -50,7 +50,7 @@ with c_dl1:
             type="primary",
             use_container_width=True
         )
-        st.caption("Includes 12 PDFs, 10 DOCXs, and 10 TXTs across Senior, Mid, Junior, and Control profiles (378 KB).")
+        st.caption("Includes 14 PDFs, 10 DOCXs, and 8 TXTs across Senior, Mid, Junior, and Control profiles (378 KB).")
 
 # Column 2: Individual Resume Download
 with c_dl2:
