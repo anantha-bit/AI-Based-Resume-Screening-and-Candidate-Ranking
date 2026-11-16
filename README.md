@@ -20,7 +20,7 @@
 
 | Team Member | Student Registration Number (SRN) | Primary Focus Areas |
 | :--- | :--- | :--- |
-| **Ananthakrishna M** | `PES1UG24AM036` | System Architecture, Prompt Engineering Benchmarking, Evaluation Suite |
+| **Ananthakrishna M A** | `PES1UG24AM036` | System Architecture, Prompt Engineering Benchmarking, Evaluation Suite |
 | **Amar Patil** | `PES1UG24AM031` | Multi-Format Document Ingestion, Streamlit Web Platform, SQLite Persistence |
 | **Akash G K** | `PES1UG24AM022` | Structured Information Extraction, S-BERT Semantic Matcher, Grounded Citations |
 
