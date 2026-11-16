@@ -103,29 +103,78 @@ class DatabaseManager:
             conn.commit()
 
     def save_job_description(self, jd_dict: Dict[str, Any]) -> int:
-        """Save a job description and return its ID."""
+        """Save or update a job description and return its ID."""
         with self._get_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute("""
-                INSERT INTO job_descriptions (
-                    job_title, required_skills, preferred_skills, education, 
-                    experience, experience_years, responsibilities, certifications, raw_text
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                jd_dict.get("job_title", "Untitled Role"),
-                json.dumps(jd_dict.get("required_skills", [])),
-                json.dumps(jd_dict.get("preferred_skills", [])),
-                jd_dict.get("education", ""),
-                jd_dict.get("experience", ""),
-                jd_dict.get("experience_years", 1.0),
-                json.dumps(jd_dict.get("responsibilities", [])),
-                json.dumps(jd_dict.get("certifications", [])),
-                jd_dict.get("raw_text", "")
-            ))
-            conn.commit()
-            return cursor.lastrowid
+            title = jd_dict.get("job_title", "Untitled Role")
+            cursor.execute("SELECT id FROM job_descriptions WHERE job_title = ?", (title,))
+            existing = cursor.fetchone()
+            if existing:
+                jd_id = existing[0]
+                cursor.execute("""
+                    UPDATE job_descriptions SET
+                        required_skills = ?, preferred_skills = ?, education = ?, 
+                        experience = ?, experience_years = ?, responsibilities = ?, 
+                        certifications = ?, raw_text = ?
+                    WHERE id = ?
+                """, (
+                    json.dumps(jd_dict.get("required_skills", [])),
+                    json.dumps(jd_dict.get("preferred_skills", [])),
+                    jd_dict.get("education", ""),
+                    jd_dict.get("experience", ""),
+                    jd_dict.get("experience_years", 1.0),
+                    json.dumps(jd_dict.get("responsibilities", [])),
+                    json.dumps(jd_dict.get("certifications", [])),
+                    jd_dict.get("raw_text", ""),
+                    jd_id
+                ))
+                conn.commit()
+                return jd_id
+            else:
+                cursor.execute("""
+                    INSERT INTO job_descriptions (
+                        job_title, required_skills, preferred_skills, education, 
+                        experience, experience_years, responsibilities, certifications, raw_text
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    title,
+                    json.dumps(jd_dict.get("required_skills", [])),
+                    json.dumps(jd_dict.get("preferred_skills", [])),
+                    jd_dict.get("education", ""),
+                    jd_dict.get("experience", ""),
+                    jd_dict.get("experience_years", 1.0),
+                    json.dumps(jd_dict.get("responsibilities", [])),
+                    json.dumps(jd_dict.get("certifications", [])),
+                    jd_dict.get("raw_text", "")
+                ))
+                conn.commit()
+                return cursor.lastrowid
 
-    def get_all_job_descriptions(self) -> List[Dict[str, Any]]:
+    def save_screening_results(self, jd_id: int, ranked_candidates: List[Dict[str, Any]]):
+        """Save a batch of candidate screening ranking results (clears old results for same JD)."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM screening_results WHERE jd_id = ?", (jd_id,))
+            for c in ranked_candidates:
+                cursor.execute("""
+                    INSERT INTO screening_results (
+                        jd_id, candidate_id, candidate_name, overall_score, rank_order,
+                        recommendation_badge, component_scores_json, matched_skills_json,
+                        missing_skills_json, explanation
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    jd_id,
+                    c.get("candidate_id"),
+                    c.get("candidate_name"),
+                    c.get("overall_score"),
+                    c.get("rank"),
+                    c.get("recommendation_badge"),
+                    json.dumps(c.get("component_scores", {})),
+                    json.dumps(c.get("matched_required_skills", [])),
+                    json.dumps(c.get("missing_required_skills", [])),
+                    c.get("explanation", "")
+                ))
+            conn.commit()
         """Retrieve all stored job descriptions."""
         with self._get_connection() as conn:
             conn.row_factory = sqlite3.Row
@@ -227,14 +276,22 @@ class DatabaseManager:
             conn.commit()
 
     def get_latest_screening_results(self, jd_id: Optional[int] = None) -> List[Dict[str, Any]]:
-        """Retrieve latest screening ranking results."""
+        """Retrieve latest screening ranking results for a specific JD or the most recently screened JD."""
         with self._get_connection() as conn:
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
-            if jd_id:
-                cursor.execute("SELECT * FROM screening_results WHERE jd_id = ? ORDER BY rank_order ASC", (jd_id,))
-            else:
-                cursor.execute("SELECT * FROM screening_results ORDER BY id DESC LIMIT 50")
+            
+            target_jd_id = jd_id
+            if target_jd_id is None:
+                # Find the most recently screened job description
+                cursor.execute("SELECT jd_id FROM screening_results ORDER BY id DESC LIMIT 1")
+                latest_row = cursor.fetchone()
+                if latest_row:
+                    target_jd_id = latest_row["jd_id"]
+                else:
+                    return []
+
+            cursor.execute("SELECT * FROM screening_results WHERE jd_id = ? ORDER BY rank_order ASC", (target_jd_id,))
             rows = cursor.fetchall()
             results = []
             for r in rows:
@@ -253,6 +310,20 @@ class DatabaseManager:
                     "created_at": r["created_at"]
                 })
             return results
+
+    def get_distinct_screened_jds(self) -> List[Dict[str, Any]]:
+        """Retrieve list of all Job Descriptions that have active screening results."""
+        with self._get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT DISTINCT jd.id, jd.job_title 
+                FROM job_descriptions jd
+                INNER JOIN screening_results sr ON jd.id = sr.jd_id
+                ORDER BY jd.id DESC
+            """)
+            rows = cursor.fetchall()
+            return [dict(r) for r in rows]
 
     def save_experiment_results(self, experiment_results: List[Dict[str, Any]]):
         """Save prompt engineering experiment results."""

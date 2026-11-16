@@ -20,87 +20,152 @@ from src.storage.database import DatabaseManager
 st.set_page_config(page_title="Job Description Analysis | AI Screening", page_icon="📄", layout="wide")
 
 st.title("📄 Job Description Analysis & Requirement Extraction")
-st.caption("Upload or paste a Job Description to parse mandatory vs optional skills, experience, and education into structured JSON.")
+st.caption("Browse catalog positions, upload custom job specifications, or paste raw text. The system automatically segments mandatory vs preferred qualifications into structured JSON.")
 
 db = DatabaseManager()
+existing_jds = db.get_all_job_descriptions()
 
-# Input Method Tabs
-tab1, tab2, tab3 = st.tabs(["✍️ Manual Text Entry", "📤 Upload JD Document", "📚 Select from Catalog"])
+# Deduplicate catalog options by ID and title
+jd_options = {}
+for jd in existing_jds:
+    label = f"{jd['job_title']} (ID: {jd['id']})"
+    jd_options[label] = jd
 
-jd_raw_text = ""
-source_name = "Manual Input"
+# Ensure session state initialization
+if "active_jd_id" not in st.session_state:
+    if existing_jds:
+        st.session_state["active_jd_id"] = existing_jds[0]["id"]
+        st.session_state["parsed_jd_cache"] = existing_jds[0]
+        st.session_state["jd_source"] = existing_jds[0]["job_title"]
+    else:
+        st.session_state["active_jd_id"] = None
+        st.session_state["parsed_jd_cache"] = None
+        st.session_state["jd_source"] = "None"
 
-with tab1:
-    manual_text = st.text_area(
-        "Paste Full Job Description:",
-        height=220,
-        placeholder="Job Title: Senior Machine Learning Engineer\n\nResponsibilities:\n- Build transformer models...\n\nRequirements:\n- 4+ years experience with Python, PyTorch, SQL, Transformers..."
-    )
-    if manual_text.strip():
-        jd_raw_text = manual_text.strip()
-        source_name = "Manual Text"
+# Top Input Tabs
+tab_catalog, tab_upload, tab_manual = st.tabs([
+    "📚 Select from Role Catalog",
+    "📤 Upload JD Document",
+    "✍️ Manual Text Entry"
+])
 
-with tab2:
+# 1. CATALOG TAB
+with tab_catalog:
+    if jd_options:
+        current_labels = list(jd_options.keys())
+        current_idx = 0
+        for i, l in enumerate(current_labels):
+            if jd_options[l]["id"] == st.session_state.get("active_jd_id"):
+                current_idx = i
+                break
+
+        selected_label = st.selectbox(
+            "Choose a pre-loaded Job Description from Catalog:",
+            current_labels,
+            index=current_idx,
+            key="catalog_jd_selectbox"
+        )
+        selected_jd_obj = jd_options[selected_label]
+
+        # Check if user switched catalog selection
+        if st.session_state.get("active_jd_id") != selected_jd_obj["id"]:
+            st.session_state["active_jd_id"] = selected_jd_obj["id"]
+            st.session_state["parsed_jd_cache"] = selected_jd_obj
+            st.session_state["jd_source"] = selected_jd_obj["job_title"]
+            st.rerun()
+
+        col_cat1, col_cat2 = st.columns([2, 3])
+        with col_cat1:
+            if st.button("🔄 Reload this Catalog Job", type="primary", use_container_width=True):
+                st.session_state["active_jd_id"] = selected_jd_obj["id"]
+                st.session_state["parsed_jd_cache"] = selected_jd_obj
+                st.session_state["jd_source"] = selected_jd_obj["job_title"]
+                st.success(f"✅ Active Job Description updated to: **{selected_jd_obj['job_title']}** (ID: {selected_jd_obj['id']})")
+                st.rerun()
+
+        with col_cat2:
+            st.caption(f"📌 Raw text length: {len(selected_jd_obj['raw_text'])} characters • Created: {selected_jd_obj['created_at']}")
+    else:
+        st.warning("No Job Descriptions found in catalog. Use Upload or Manual tabs to add one.")
+
+# 2. UPLOAD TAB
+with tab_upload:
     uploaded_file = st.file_uploader("Upload Job Description (.pdf, .docx, .txt)", type=["pdf", "docx", "txt"])
     if uploaded_file:
         file_bytes = uploaded_file.read()
         res = DocumentLoader.load_bytes(file_bytes, uploaded_file.name)
         if res["success"]:
-            jd_raw_text = res["text"]
-            source_name = uploaded_file.name
-            st.success(f"Successfully loaded '{uploaded_file.name}' ({len(jd_raw_text)} characters)")
+            st.info(f"Loaded '{uploaded_file.name}' ({len(res['text'])} characters). Click button below to parse.")
+            if st.button("🚀 Analyze Uploaded Document", type="primary"):
+                with st.spinner("Extracting structured criteria..."):
+                    parsed = JobDescriptionExtractor.extract_from_text(res["text"])
+                    new_id = db.save_job_description(parsed)
+                    parsed["id"] = new_id
+                    st.session_state["active_jd_id"] = new_id
+                    st.session_state["parsed_jd_cache"] = parsed
+                    st.session_state["jd_source"] = uploaded_file.name
+                    st.success(f"✅ Saved and activated new Job Description: **{parsed['job_title']}** (ID: {new_id})!")
+                    st.rerun()
         else:
             st.error(res["error"])
 
-with tab3:
-    existing_jds = db.get_all_job_descriptions()
-    if existing_jds:
-        jd_options = {f"{jd['job_title']} (ID: {jd['id']})": jd for jd in existing_jds}
-        selected_option = st.selectbox("Choose a pre-loaded Job Description:", list(jd_options.keys()))
-        if st.button("Load Selected JD"):
-            selected_jd = jd_options[selected_option]
-            jd_raw_text = selected_jd["raw_text"]
-            source_name = selected_jd["job_title"]
-            st.info(f"Loaded '{selected_jd['job_title']}' from database.")
+# 3. MANUAL TAB
+with tab_manual:
+    manual_text = st.text_area(
+        "Paste Full Job Description:",
+        height=180,
+        placeholder="Job Title: Senior Machine Learning Engineer\n\nRequirements:\n- 4+ years experience with Python, PyTorch, Transformers, SQL\n\nResponsibilities:\n- Design scalable ML models..."
+    )
+    if st.button("🚀 Parse & Save Manual JD", type="primary"):
+        if manual_text.strip():
+            with st.spinner("Parsing requirements..."):
+                parsed = JobDescriptionExtractor.extract_from_text(manual_text.strip())
+                new_id = db.save_job_description(parsed)
+                parsed["id"] = new_id
+                st.session_state["active_jd_id"] = new_id
+                st.session_state["parsed_jd_cache"] = parsed
+                st.session_state["jd_source"] = "Manual Input"
+                st.success(f"✅ Saved and activated: **{parsed['job_title']}** (ID: {new_id})!")
+                st.rerun()
+        else:
+            st.warning("Please paste some job description text first.")
 
-if st.button("🚀 Analyze & Extract Structured Requirements", type="primary") or (jd_raw_text and "parsed_jd_cache" not in st.session_state):
-    if not jd_raw_text:
-        st.warning("Please provide a Job Description text or select one from the catalog.")
-    else:
-        with st.spinner("Analyzing text and extracting requirements..."):
-            parsed = JobDescriptionExtractor.extract_from_text(jd_raw_text)
-            st.session_state["parsed_jd_cache"] = parsed
-            st.session_state["jd_source"] = source_name
+st.markdown("---")
 
-if "parsed_jd_cache" in st.session_state:
+# DISPLAY CURRENT ACTIVE JOB DESCRIPTION
+if st.session_state.get("parsed_jd_cache"):
     parsed = st.session_state["parsed_jd_cache"]
-    st.markdown("---")
-    st.subheader(f"🎯 Extracted Role: {parsed['job_title']}")
+    st.subheader(f"🎯 Active Role: {parsed['job_title']} (ID: {parsed.get('id', 'N/A')})")
+    st.caption(f"Source: {st.session_state.get('jd_source', 'Catalog')}")
 
     c1, c2 = st.columns([3, 2])
 
     with c1:
         st.markdown("#### ⚡ Mandatory Technical Skills (Required)")
-        if parsed["required_skills"]:
+        if parsed.get("required_skills"):
             st.write(" ".join([f"`{s}`" for s in parsed["required_skills"]]))
         else:
             st.info("None explicitly flagged as mandatory.")
 
         st.markdown("#### 🌟 Nice-to-Have Skills (Preferred)")
-        if parsed["preferred_skills"]:
+        if parsed.get("preferred_skills"):
             st.write(" ".join([f"`{s}`" for s in parsed["preferred_skills"]]))
         else:
             st.info("None explicitly flagged as preferred.")
 
         st.markdown("#### 📋 Key Responsibilities")
-        for r in parsed.get("responsibilities", []):
-            st.markdown(f"- {r}")
+        resps = parsed.get("responsibilities", [])
+        if resps:
+            for r in resps:
+                st.markdown(f"- {r}")
+        else:
+            st.write("Responsibilities extracted from job description summary.")
 
     with c2:
         with st.container(border=True):
             st.markdown("#### 🎓 Qualifications Thresholds")
-            st.write(f"**Minimum Education:** {parsed['education']}")
-            st.write(f"**Required Experience:** {parsed['experience']} ({parsed['experience_years']} years)")
+            st.write(f"**Minimum Education:** {parsed.get('education', 'Bachelor Degree')}")
+            st.write(f"**Required Experience:** {parsed.get('experience', '2+ years')} ({parsed.get('experience_years', 1.0)} years)")
             
             if parsed.get("certifications"):
                 st.write(f"**Relevant Certifications:** {', '.join(parsed['certifications'])}")
@@ -108,15 +173,11 @@ if "parsed_jd_cache" in st.session_state:
             st.markdown("---")
             st.markdown("#### 📦 Structured JSON Output (Syllabus Format)")
             json_preview = {
-                "job_title": parsed["job_title"],
-                "required_skills": parsed["required_skills"],
-                "preferred_skills": parsed["preferred_skills"],
-                "education": parsed["education"],
-                "experience": parsed["experience"],
-                "experience_years": parsed["experience_years"]
+                "job_title": parsed.get("job_title"),
+                "required_skills": parsed.get("required_skills"),
+                "preferred_skills": parsed.get("preferred_skills"),
+                "education": parsed.get("education"),
+                "experience": parsed.get("experience"),
+                "experience_years": parsed.get("experience_years")
             }
             st.json(json_preview)
-
-            if st.button("💾 Save Job Description to Database"):
-                new_id = db.save_job_description(parsed)
-                st.success(f"Saved to database with ID: {new_id}!")

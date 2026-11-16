@@ -1,0 +1,19 @@
+Deepak Shenoy
+Bengaluru, India | deepak.shenoy@email.com | +91 98450 77889
+
+PROFESSIONAL SUMMARY
+Backend Software Engineer with 3 years of experience developing microservices using Java, Python, and PostgreSQL.
+
+SKILLS
+- Languages: Java, Python, SQL
+- Technologies: Spring Boot, FastAPI, PostgreSQL, Redis, Docker, Git
+- Concepts: REST APIs, Microservices, Object-Oriented Programming
+
+EXPERIENCE
+Backend Developer | NexaTech Solutions | 2021 - Present
+- Developed RESTful API microservices using Java Spring Boot and Python.
+- Configured Redis caching to optimize database query performance by 40%.
+- Maintained PostgreSQL schemas and wrote complex data migration scripts.
+
+EDUCATION
+Bachelor of Engineering in Information Science | PES University | 2021

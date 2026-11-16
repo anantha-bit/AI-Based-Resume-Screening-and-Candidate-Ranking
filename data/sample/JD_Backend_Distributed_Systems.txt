@@ -1,0 +1,26 @@
+Job Title: Backend Distributed Systems Engineer
+Department: Core Platform Architecture
+Location: Bengaluru, India
+
+About the Role:
+We are seeking a Backend Distributed Systems Engineer to design resilient, low-latency microservices handling millions of concurrent requests.
+
+Key Responsibilities:
+- Design, build, and maintain high-throughput backend services using Python, Go, or Java.
+- Implement distributed caching and message streaming using Redis and Apache Kafka.
+- Design robust database schemas and optimize complex SQL queries in PostgreSQL.
+- Architect RESTful APIs and high-performance gRPC services.
+- Ensure fault tolerance, distributed consensus, and load balancing across microservices.
+
+Minimum Qualifications (Required):
+- Bachelor's degree in Computer Science, Software Engineering, or related field.
+- 3+ years of experience building distributed backend systems and microservices.
+- Strong proficiency in Python, Go, or Java.
+- In-depth experience with relational databases (PostgreSQL, MySQL) and SQL query optimization.
+- Hands-on experience with message brokers (Kafka or RabbitMQ) and caching (Redis).
+- Solid knowledge of Git, Docker, and Linux environments.
+
+Preferred Qualifications (Nice to Have):
+- Experience with gRPC, Protocol Buffers, and WebSocket streaming.
+- Understanding of distributed systems principles (CAP theorem, event-driven architecture).
+- Experience with Kubernetes and CI/CD pipelines.

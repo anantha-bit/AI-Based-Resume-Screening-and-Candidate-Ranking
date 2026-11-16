@@ -1,0 +1,26 @@
+Job Title: Mobile Application Developer (Flutter & React Native)
+Department: Mobile Engineering
+Location: Bengaluru, India
+
+About the Role:
+We are looking for a talented Mobile Application Developer to build beautiful, responsive cross-platform mobile applications for iOS and Android.
+
+Key Responsibilities:
+- Develop fluid, native-feeling mobile applications using Flutter (Dart) and React Native.
+- Integrate mobile clients with backend REST APIs and GraphQL endpoints.
+- Implement robust client-side state management (Bloc, Provider, Redux).
+- Optimize app rendering performance, startup time, and offline data synchronization.
+- Publish and manage app releases on Google Play Store and Apple App Store.
+
+Minimum Qualifications (Required):
+- Bachelor's degree in Computer Science, Mobile Computing, or equivalent practical experience.
+- 2+ years of professional mobile application development experience.
+- Strong proficiency in Flutter & Dart OR React Native & TypeScript.
+- Demonstrated experience integrating RESTful APIs and JSON parsing in mobile apps.
+- Solid understanding of mobile UI/UX guidelines (Material Design, iOS Human Interface).
+- Experience with Git version control and mobile debugging tools.
+
+Preferred Qualifications (Nice to Have):
+- Experience with native Android (Kotlin) or iOS (Swift) bridging.
+- Familiarity with Firebase (Authentication, Firestore, Push Notifications).
+- Exposure to mobile CI/CD pipelines (Fastlane).

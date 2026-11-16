@@ -1,0 +1,26 @@
+Job Title: Generative AI & LLM Solutions Architect
+Department: AI Solutions & Applied Intelligence
+Location: Bengaluru, India
+
+About the Role:
+We are looking for a Generative AI & LLM Solutions Architect to design cutting-edge enterprise GenAI workflows, agentic architectures, and retrieval-augmented systems utilizing state-of-the-art LLMs.
+
+Key Responsibilities:
+- Architect enterprise-grade Retrieval-Augmented Generation (RAG) applications using LangChain, LlamaIndex, and Vector Databases.
+- Design advanced prompt engineering pipelines (Chain-of-Thought, ReAct, multi-agent coordination).
+- Fine-tune and evaluate open-source foundation models (LLaMA, Mistral, Gemma) using LoRA and QLoRA.
+- Deploy scalable model inference microservices with FastAPI and Docker.
+- Establish factual grounding, hallucination prevention benchmarks, and fairness evaluations.
+
+Minimum Qualifications (Required):
+- Master's or Bachelor's degree in AI/ML, Data Science, or Computer Science.
+- 4+ years in software engineering with 2+ years dedicated to Generative AI and LLMs.
+- Strong proficiency in Python, PyTorch, and Hugging Face Transformers.
+- Deep hands-on experience with LangChain, LlamaIndex, and Vector Databases (FAISS, Chroma, Pinecone).
+- Demonstrated mastery of Prompt Engineering tactics, few-shot prompting, and evaluation.
+- Solid understanding of embeddings, vector similarity search, and semantic indexing.
+
+Preferred Qualifications (Nice to Have):
+- Experience deploying LLM agents with tool calling and memory systems.
+- Prior publication or research in NLP, transformers, or prompt engineering.
+- Familiarity with cloud AI platforms (Google Vertex AI, AWS Bedrock).

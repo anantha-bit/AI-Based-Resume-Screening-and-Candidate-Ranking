@@ -57,7 +57,7 @@ Our system establishes a **controlled, evidence-grounded screening workflow** th
 1. **Deterministic Multi-Criteria Scoring** across six calibrated dimensions.
 2. **Dense Transformer Semantic Embeddings** (`all-MiniLM-L6-v2`) to capture technical synonymy.
 3. **Grounded LLM Information Extraction** mandating verbatim resume sentence citations for every verified qualification.
-4. **Empirical Benchmarking of 10 Prompt Engineering Paradigms** on an identical candidate cohort.
+4. **Empirical Benchmarking of 10 Prompt Engineering Paradigms** on an expanded candidate cohort.
 
 ---
 
@@ -66,8 +66,8 @@ Our system establishes a **controlled, evidence-grounded screening workflow** th
 ```mermaid
 graph TD
     subgraph Ingestion Layer
-        JD_Input[Job Description Input: Text / PDF / DOCX] --> JDExtract[Job Description Extractor]
-        Resume_Files[Resumes: PDF / DOCX / TXT] --> DocLoader[Document Loader]
+        JD_In[8 Catalog Job Descriptions: Text / PDF / DOCX] --> JDExtract[Job Description Extractor]
+        Resume_In[32 Candidate Resumes: PDF / DOCX / TXT] --> DocLoader[Document Loader]
         DocLoader --> ResExtract[Resume Sectioner & Entity Extractor]
     end
 
@@ -83,22 +83,40 @@ graph TD
 
     subgraph Scoring & Persistence
         Baseline & Semantic & LLM_Engine --> Ranker[Module 7: Multi-Criteria Weighted Ranker]
-        Ranker --> DB[(SQLite Database)]
+        Ranker --> DB[(SQLite Database: app_database.db)]
     end
 
-    subgraph User Interface Layer
+    subgraph Streamlit Web Application
         DB --> UI_Dash[Page 1: Executive Dashboard]
-        DB --> UI_JD[Page 2: JD Requirement Extraction]
+        DB --> UI_JD[Page 2: JD Requirement Extraction & Catalog]
         DB --> UI_Upload[Page 3: Batch Resume Ingestion]
         DB --> UI_Screen[Page 4: Candidate Screening Runner]
         DB --> UI_Rank[Page 5: Candidate Leaderboard]
         DB --> UI_Dossier[Page 6: Candidate Dossier & PDF Export]
         DB --> UI_Prompt[Page 7: Prompt Engineering Suite]
-        DB --> UI_Comp[Page 8: Model Comparison Suite]
-        DB --> UI_Eval[Page 9: Academic IR Dashboard]
-        DB --> UI_About[Page 10: Syllabus & Team Information]
+        DB --> UI_Eval[Page 8: Academic Evaluation Dashboard]
     end
 ```
+
+---
+
+## 📚 Expanded Role Catalog & Candidate Cohort
+
+The system includes **8 pre-configured industry Job Descriptions** and **32 multi-tier candidate resumes** across multiple technical domains:
+
+### 1. Job Descriptions in Catalog
+1. **Senior Machine Learning Engineer** (AI, Transformers, RAG, PyTorch)
+2. **Full Stack Software Developer** (React, TypeScript, FastAPI, PostgreSQL)
+3. **Data Analyst / Business Intelligence Specialist** (SQL, Power BI, Tableau, Python)
+4. **Cloud DevOps & Site Reliability Engineer (SRE)** (AWS, Kubernetes, Terraform, Docker, CI/CD)
+5. **Generative AI & LLM Solutions Architect** (LangChain, LlamaIndex, Vector DBs, Fine-Tuning)
+6. **Backend Distributed Systems Engineer** (Python, Go, Kafka, Redis, Microservices)
+7. **Mobile Application Developer** (Flutter, Dart, React Native, Mobile UI)
+8. **Cybersecurity Analyst & DevSecOps Specialist** (SIEM, Vulnerability Assessment, Network Security)
+
+### 2. Candidate Resumes (32 Multi-Tier Profiles)
+- Formats provided: `.pdf`, `.docx`, `.txt`
+- Spans Senior Specialists, Mid-Level Engineers, Junior Freshers, Career Switchers, and Negative Control Profiles (Civil Construction, Culinary Pastry Chef, Retail Sales, Mechanical Workshop, Banking Cashier, Hotel Front Desk).
 
 ---
 
@@ -118,30 +136,6 @@ As part of the research curriculum for **UE24AM343AB5**, we systematically imple
 | **8. Structured JSON Output** | Schema Enforcement | Guarantees strict JSON output compliance for downstream parsers | 0.59 s | 90.0% |
 | **9. Critic & Refinement** | Multi-Pass Auditing | Two-pass auditor pass catches hallucinations and verifies fairness | 1.40 s | 97.0% |
 | **10. Self-Consistency** | Wang et al. (2022) | Triplicate independent sampling assessing ranking stability | 1.62 s | 96.0% |
-
----
-
-## 📊 Empirical Evaluation & Experimental Results
-
-### 1. Classification Metrics (Eligibility Threshold = 65%)
-Evaluated against expert-annotated ground truth labels on 15 multi-tier candidates:
-
-| Screening Paradigm | Accuracy | Precision | Recall | F1-Score | True Positives | True Negatives |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Classical NLP Baseline (TF-IDF)** | 20.0% | 0.0% | 0.0% | 0.0000 | 0 | 3 |
-| **Transformer Semantic Matching (S-BERT)** | 26.7% | **100.0%** | 8.3% | 0.1538 | 1 | 3 |
-| **Grounded LLM Composite System** | **33.3%** | **100.0%** | **16.7%** | **0.2857** | 2 | 3 |
-
-### 2. Information Retrieval & Ranking Metrics
-Measures top-of-funnel recruiter prioritization quality:
-
-| Model Paradigm | Precision@1 | Precision@3 | Precision@5 | NDCG@3 | NDCG@5 | MRR |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Classical NLP Baseline (TF-IDF)** | 1.00 | 1.00 | 1.00 | 1.0000 | 0.9634 | 1.0000 |
-| **Transformer Semantic Matching (S-BERT)** | 1.00 | 1.00 | 1.00 | 1.0000 | 0.9812 | 1.0000 |
-| **Grounded LLM Composite System** | **1.00** | **1.00** | **1.00** | **1.0000** | **1.0000** | **1.0000** |
-
-*All paradigms successfully isolate top talent (Arjun Sharma, Priya Nair, Divya Hegde) while assigning Low Fit (<35%) to negative control profiles (Civil Construction, Culinary Chef, Retail Sales).*
 
 ---
 
@@ -203,7 +197,7 @@ python run.py test
 ```bash
 python run.py benchmark
 ```
-*Executes the complete experimental pipeline across 15 candidates and updates SQLite and `experiments/results_summary.json`.*
+*Executes the complete experimental pipeline across 32 candidates and updates SQLite and `experiments/results_summary.json`.*
 
 ---
 
@@ -217,15 +211,13 @@ AI-Based-Resume-Screening-and-Candidate-Ranking/
 │   ├── main.py                      # Main landing page & navigation
 │   └── pages/
 │       ├── 1_Dashboard.py           # Executive analytics & score distributions
-│       ├── 2_Job_Description_Analysis.py # Structured requirement extraction
+│       ├── 2_Job_Description_Analysis.py # Structured requirement extraction & catalog
 │       ├── 3_Upload_Resumes.py      # Batch PDF/DOCX resume ingestion
 │       ├── 4_Candidate_Screening.py # Configurable weight screening runner
 │       ├── 5_Candidate_Rankings.py  # Sortable leaderboard & CSV export
 │       ├── 6_Individual_Candidate_Analysis.py # Radar profile & PDF dossier
 │       ├── 7_Prompt_Engineering_Experiments.py # 10-strategy prompt benchmark
-│       ├── 8_Model_Comparison.py    # TF-IDF vs Semantic vs LLM comparison
-│       ├── 9_Evaluation_Dashboard.py # Confusion matrices, NDCG@K, MRR
-│       └── 10_About_Project.py      # Team information & syllabus mapping
+│       └── 8_Evaluation_Dashboard.py # Confusion matrices, NDCG@K, MRR
 ├── src/
 │   ├── preprocessing/               # Text cleaning, contact extraction, loaders
 │   ├── extraction/                  # Skill taxonomy (500+ skills), JD/resume parsers
@@ -238,7 +230,7 @@ AI-Based-Resume-Screening-and-Candidate-Ranking/
 │   ├── reporting/                   # ReportLab PDF dossier generator
 │   └── storage/                     # SQLite database manager
 ├── data/
-│   ├── sample/                      # 3 JDs + 15 sample resumes (PDF, DOCX, TXT)
+│   ├── sample/                      # 8 JDs + 32 sample resumes (PDF, DOCX, TXT)
 │   ├── processed/
 │   ├── app_database.db              # Pre-seeded SQLite database
 │   └── README.md                    # Dataset documentation & attribution
@@ -274,7 +266,7 @@ This project satisfies all learning outcomes and syllabus units of **PES Univers
 | **Unit 1: Foundations of GenAI & Prompting** | Word Embeddings, Transformers, Anatomy of a Prompt (instructions, context, input, output), Zero-shot, Few-shot | Pretrained Sentence-BERT embeddings, structured prompt anatomy, Zero-shot, Few-shot and Role-based prompt strategies |
 | **Unit 2: Practices for Text Generation with LLMs** | Handling JSON, Summarization, Chunking text, Output parsers, Document loaders, Prompt chaining | Multi-format PDF/DOCX loaders, section splitters, strict JSON schema parsing, 3-stage Chained Prompting |
 | **Unit 3: Autonomous Agents with Memory & Tools** | Vector databases, RAG, Chain-of-Thought (CoT), Grounded prompting, Self-consistency | Cosine vector similarity, 5-step Chain-of-Thought task decomposition, Grounded evidence citation, Self-consistency sampling |
-| **Unit 4: AI Applications & Evaluation** | Building end-to-end applications, structured UI, prompt benchmarking, ethical AI & fairness | Complete 10-page Streamlit application, SQLite persistence, ReportLab PDF exporter, Fairness & bias audit |
+| **Unit 4: AI Applications & Evaluation** | Building end-to-end applications, structured UI, prompt benchmarking, ethical AI & fairness | Streamlit application, SQLite persistence, ReportLab PDF exporter, Fairness & bias audit |
 
 ---
 
@@ -284,21 +276,6 @@ This project satisfies all learning outcomes and syllabus units of **PES Univers
 2. **Decision Support, Not Autonomous Hiring:** The system assists human recruiters by organizing evidence; it does not autonomously reject candidates.
 3. **Verifiable Explanations:** Every positive qualification claim must cite an exact verbatim quotation from the candidate's uploaded resume.
 4. **Transparent Audit Trail:** All applied weights, score components, and prompt outputs are logged in SQLite for auditability.
-
----
-
-## 📖 Key Academic References
-
-1. **Brown, T. B. et al. (2020).** *Language Models are Few-Shot Learners.* NeurIPS 2020.
-2. **Wei, J. et al. (2022).** *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models.* NeurIPS 2022.
-3. **Zhou, D. et al. (2022).** *Least-to-Most Prompting Enables Complex Reasoning in Large Language Models.* ICLR 2022.
-4. **Wang, X. et al. (2022).** *Self-Consistency Improves Chain of Thought Reasoning in Language Models.* ICLR 2022.
-5. **Yao, S. et al. (2023).** *ReAct: Synergizing Reasoning and Acting in Language Models.* ICLR 2023.
-6. **Sahoo, P. et al. (2024).** *A Systematic Survey of Prompt Engineering in Large Language Models.* arXiv:2402.07927.
-7. **Phoenix, J. & Taylor, M. (2024).** *Prompt Engineering for Generative AI.* O'Reilly Media.
-8. **Jurafsky, D. & Martin, J. H. (2024).** *Speech and Language Processing (3rd ed. draft).* Stanford University.
-9. **Reimers, N. & Gurevych, I. (2019).** *Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks.* EMNLP 2019.
-10. **Roy, P. K. et al. (2020).** *A Machine Learning approach for automation of Resume Recommendation system.* Procedia Computer Science.
 
 ---
 

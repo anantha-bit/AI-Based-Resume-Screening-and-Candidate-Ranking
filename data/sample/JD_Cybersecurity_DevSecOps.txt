@@ -1,0 +1,26 @@
+Job Title: Cybersecurity Analyst & DevSecOps Specialist
+Department: Information Security & Risk Management
+Location: Bengaluru, India
+
+About the Role:
+We are hiring a Cybersecurity Analyst & DevSecOps Specialist to protect our cloud infrastructure, conduct vulnerability assessments, and embed security automated controls into CI/CD pipelines.
+
+Key Responsibilities:
+- Conduct vulnerability assessments, static code analysis (SAST), and dynamic security testing (DAST).
+- Integrate automated security gates and container scanning into CI/CD pipelines (Docker, Kubernetes).
+- Monitor security events, analyze SIEM logs, and respond to security incidents.
+- Enforce Identity and Access Management (IAM), encryption at rest and in transit, and least privilege.
+- Maintain compliance with industry standards (ISO 27001, SOC 2, OWASP Top 10).
+
+Minimum Qualifications (Required):
+- Bachelor's degree in Cybersecurity, Computer Science, or Information Security.
+- 3+ years in information security, SOC analysis, or DevSecOps roles.
+- Strong understanding of network security, firewalls, TLS/SSL, and web application security (OWASP).
+- Practical experience with vulnerability scanners (SonarQube, Trivy, Nessus).
+- Scripting proficiency in Python or Bash for security automation.
+- Familiarity with cloud security controls in AWS or GCP.
+
+Preferred Qualifications (Nice to Have):
+- Industry certifications: CEH, CompTIA Security+, CISSP, or AWS Certified Security - Specialty.
+- Experience with SIEM tools (Splunk, Elastic SIEM).
+- Knowledge of container security in Kubernetes.

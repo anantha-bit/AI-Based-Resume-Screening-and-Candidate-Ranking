@@ -3,7 +3,7 @@
   "description": "Curated benchmark dataset containing 15 candidates mapped across 3 job descriptions for academic evaluation.",
   "attribution": "Aligned with Kaggle Resume Dataset & PES University UE24AM343AB5 evaluation standards.",
   "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
-  "records_count": 15,
+  "records_count": 32,
   "candidates": [
     {
       "candidate_id": "CAND-01",
@@ -139,6 +139,159 @@
       "ground_truth_relevance": 0.0,
       "ground_truth_label": 0,
       "category": "Negative Control (Retail Sales)"
+    },
+    {
+      "candidate_id": "CAND-16",
+      "candidate_name": "Naveen Chopra",
+      "file_name": "Resume_Naveen_Chopra.pdf",
+      "target_jd_id": "JD-04",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (DevOps / SRE)"
+    },
+    {
+      "candidate_id": "CAND-17",
+      "candidate_name": "Harish Bhat",
+      "file_name": "Resume_Harish_Bhat.docx",
+      "target_jd_id": "JD-04",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (Cloud Infrastructure)"
+    },
+    {
+      "candidate_id": "CAND-18",
+      "candidate_name": "Tanvi Saxena",
+      "file_name": "Resume_Tanvi_Saxena.pdf",
+      "target_jd_id": "JD-05",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (GenAI Architect)"
+    },
+    {
+      "candidate_id": "CAND-19",
+      "candidate_name": "Varun Teja",
+      "file_name": "Resume_Varun_Teja.docx",
+      "target_jd_id": "JD-05",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (LLM Prompt Engineer)"
+    },
+    {
+      "candidate_id": "CAND-20",
+      "candidate_name": "Gaurav Mishra",
+      "file_name": "Resume_Gaurav_Mishra.pdf",
+      "target_jd_id": "JD-06",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (Distributed Systems)"
+    },
+    {
+      "candidate_id": "CAND-21",
+      "candidate_name": "Deepak Shenoy",
+      "file_name": "Resume_Deepak_Shenoy.txt",
+      "target_jd_id": "JD-06",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (Backend Java/Python)"
+    },
+    {
+      "candidate_id": "CAND-22",
+      "candidate_name": "Rhea Pinto",
+      "file_name": "Resume_Rhea_Pinto.pdf",
+      "target_jd_id": "JD-07",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (Flutter Mobile)"
+    },
+    {
+      "candidate_id": "CAND-23",
+      "candidate_name": "Karthik Balaji",
+      "file_name": "Resume_Karthik_Balaji.docx",
+      "target_jd_id": "JD-07",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (React Native)"
+    },
+    {
+      "candidate_id": "CAND-24",
+      "candidate_name": "Shweta Ramesh",
+      "file_name": "Resume_Shweta_Ramesh.pdf",
+      "target_jd_id": "JD-08",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (Cybersecurity Analyst)"
+    },
+    {
+      "candidate_id": "CAND-25",
+      "candidate_name": "Pradeep Venkatesh",
+      "file_name": "Resume_Pradeep_Venkatesh.txt",
+      "target_jd_id": "JD-08",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (DevSecOps)"
+    },
+    {
+      "candidate_id": "CAND-26",
+      "candidate_name": "Nidhi Agarwal",
+      "file_name": "Resume_Nidhi_Agarwal.pdf",
+      "target_jd_id": "JD-01",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (Mid ML Engineer)"
+    },
+    {
+      "candidate_id": "CAND-27",
+      "candidate_name": "Samir Khan",
+      "file_name": "Resume_Samir_Khan.docx",
+      "target_jd_id": "JD-02",
+      "ground_truth_relevance": 2.5,
+      "ground_truth_label": 1,
+      "category": "Moderate Match (Full Stack Node/React)"
+    },
+    {
+      "candidate_id": "CAND-28",
+      "candidate_name": "Geeta Prasad",
+      "file_name": "Resume_Geeta_Prasad.pdf",
+      "target_jd_id": "JD-03",
+      "ground_truth_relevance": 3.0,
+      "ground_truth_label": 1,
+      "category": "High Match (Senior BI Analyst)"
+    },
+    {
+      "candidate_id": "CAND-29",
+      "candidate_name": "Ajay Choudhury",
+      "file_name": "Resume_Ajay_Choudhury.txt",
+      "target_jd_id": "JD-03",
+      "ground_truth_relevance": 2.0,
+      "ground_truth_label": 1,
+      "category": "Junior Match (Data Analyst)"
+    },
+    {
+      "candidate_id": "CAND-30",
+      "candidate_name": "Mahesh Gowda",
+      "file_name": "Resume_Mahesh_Gowda_Control.pdf",
+      "target_jd_id": "JD-04",
+      "ground_truth_relevance": 0.0,
+      "ground_truth_label": 0,
+      "category": "Negative Control (Mechanical Automotive)"
+    },
+    {
+      "candidate_id": "CAND-31",
+      "candidate_name": "Sunita Roy",
+      "file_name": "Resume_Sunita_Roy_Control.docx",
+      "target_jd_id": "JD-03",
+      "ground_truth_relevance": 0.0,
+      "ground_truth_label": 0,
+      "category": "Negative Control (Banking Teller)"
+    },
+    {
+      "candidate_id": "CAND-32",
+      "candidate_name": "Vijay Nambiar",
+      "file_name": "Resume_Vijay_Nambiar_Control.txt",
+      "target_jd_id": "JD-02",
+      "ground_truth_relevance": 0.0,
+      "ground_truth_label": 0,
+      "category": "Negative Control (Hotel Hospitality)"
     }
   ]
 }

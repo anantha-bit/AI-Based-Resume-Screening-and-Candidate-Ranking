@@ -1,0 +1,17 @@
+Pradeep Venkatesh
+Bengaluru, India | pradeep.v@email.com | +91 98451 99887
+
+SUMMARY
+DevSecOps Engineer with 2.5 years experience embedding automated vulnerability scans into CI/CD pipelines.
+
+SKILLS
+- Security: DevSecOps, Docker, Kubernetes, Linux, Python, OWASP, SonarQube, Trivy
+- Tools: Git, Jenkins, AWS IAM
+
+EXPERIENCE
+Security Associate | SecurePipeline | 2022 - Present
+- Configured automated container vulnerability scanning with Trivy in Jenkins CI/CD.
+- Managed IAM roles and security policies on AWS.
+
+EDUCATION
+Bachelor of Engineering in CSE | PES University | 2022

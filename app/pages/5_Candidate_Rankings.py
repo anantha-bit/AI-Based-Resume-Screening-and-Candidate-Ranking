@@ -21,10 +21,37 @@ st.title("🏆 Candidate Rankings & Leaderboard")
 st.caption("Transparent, evidence-grounded candidate leaderboard. Candidates are ranked based on calibrated multi-dimensional scores.")
 
 db = DatabaseManager()
-results = db.get_latest_screening_results()
+
+# Let user pick which Job Description's rankings to inspect
+screened_jds = db.get_distinct_screened_jds()
+all_jds = db.get_all_job_descriptions()
+
+if not screened_jds:
+    st.warning("⚠️ No candidate rankings available yet. Please run screening from the 'Candidate Screening' page.")
+    st.stop()
+
+jd_choices = {f"{j['job_title']} (ID: {j['id']})": j["id"] for j in screened_jds}
+
+# Pick default JD
+default_jd_idx = 0
+if "active_jd_id" in st.session_state and st.session_state["active_jd_id"]:
+    for idx, (label, j_id) in enumerate(jd_choices.items()):
+        if j_id == st.session_state["active_jd_id"]:
+            default_jd_idx = idx
+            break
+
+selected_jd_label = st.selectbox(
+    "📌 Select Job Requisition to View Rankings:",
+    list(jd_choices.keys()),
+    index=default_jd_idx,
+    key="rankings_jd_picker"
+)
+selected_jd_id = jd_choices[selected_jd_label]
+
+results = db.get_latest_screening_results(selected_jd_id)
 
 if not results:
-    st.warning("⚠️ No candidate rankings available. Please run screening from the 'Candidate Screening' page.")
+    st.info(f"No candidates screened for this role yet. Please run screening for this job in 'Candidate Screening'.")
     st.stop()
 
 df = pd.DataFrame(results)
@@ -97,7 +124,7 @@ with c_exp1:
     st.download_button(
         "📥 Download Leaderboard as CSV",
         data=csv,
-        file_name="candidate_rankings_leaderboard.csv",
+        file_name=f"rankings_{selected_jd_id}.csv",
         mime="text/csv"
     )
 

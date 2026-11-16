@@ -1,0 +1,16 @@
+Ajay Choudhury
+Bengaluru, India | ajay.c@email.com | +91 98110 55443
+
+SUMMARY
+Data Analyst with 1.5 years experience in SQL querying, Excel reporting, and data visualization in Tableau.
+
+SKILLS
+- Tools: SQL, Excel, Tableau, basic Power BI, Python, Pandas
+
+EXPERIENCE
+Junior Analyst | PulseData | 2023 - Present
+- Extracted and cleaned tabular data using SQL and Python.
+- Built monthly KPI performance reports in Excel and Tableau.
+
+EDUCATION
+Bachelor of Science in Computer Science | Bangalore University | 2023

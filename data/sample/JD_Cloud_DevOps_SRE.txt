@@ -1,0 +1,26 @@
+Job Title: Cloud DevOps & Site Reliability Engineer
+Department: Infrastructure & Platform Engineering
+Location: Bengaluru, India (Hybrid)
+
+About the Role:
+We are seeking an experienced Cloud DevOps and Site Reliability Engineer (SRE) to manage our multi-cloud Kubernetes infrastructure, automate CI/CD delivery pipelines, and ensure high system availability.
+
+Key Responsibilities:
+- Design and maintain highly available Kubernetes clusters on AWS and Google Cloud Platform.
+- Build and optimize Infrastructure as Code (IaC) using Terraform and Ansible.
+- Manage automated CI/CD deployment pipelines using GitHub Actions, Jenkins, and Docker.
+- Implement proactive monitoring, alerting, and observability using Prometheus, Grafana, and Datadog.
+- Maintain production security, IAM policies, and disaster recovery procedures.
+
+Minimum Qualifications (Required):
+- Bachelor's degree in Computer Science, Information Technology, or related engineering discipline.
+- 3+ years of hands-on experience in DevOps, Cloud Engineering, or SRE roles.
+- Deep expertise in AWS (Amazon Web Services) or Google Cloud Platform (GCP).
+- Strong proficiency in Docker containerization and Kubernetes orchestration.
+- Solid experience writing Infrastructure as Code using Terraform.
+- Proficiency in Linux system administration and Bash or Python scripting.
+
+Preferred Qualifications (Nice to Have):
+- Experience with CI/CD tools (GitHub Actions, Jenkins, GitLab CI).
+- Familiarity with Helm charts and service meshes (Istio).
+- Certified Kubernetes Administrator (CKA) or AWS Solutions Architect certification.

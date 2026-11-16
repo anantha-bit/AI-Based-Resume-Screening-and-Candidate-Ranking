@@ -53,26 +53,37 @@ def run_full_benchmark():
     with open(gt_file, "r", encoding="utf-8") as f:
         gt_data = json.load(f)
 
-    # 2. Ingest and Parse Primary Job Description (Senior ML Engineer)
-    jd_path = os.path.join(DATA_DIR, "JD_Senior_ML_Engineer.txt")
-    jd_doc = DocumentLoader.load_file(jd_path)
-    parsed_jd = JobDescriptionExtractor.extract_from_text(jd_doc["text"])
-    jd_id = db.save_job_description(parsed_jd)
-    print(f"[OK] Job Description parsed and saved: '{parsed_jd['job_title']}' (ID: {jd_id})")
-    print(f"     Required Skills: {parsed_jd['required_skills']}")
-    print(f"     Preferred Skills: {parsed_jd['preferred_skills']}")
+    # 2. Ingest and Parse All 8 Catalog Job Descriptions
+    all_jd_files = [
+        "JD_Senior_ML_Engineer.txt",
+        "JD_Full_Stack_Developer.txt",
+        "JD_Data_Analyst.txt",
+        "JD_Cloud_DevOps_SRE.txt",
+        "JD_GenAI_LLM_Solutions_Architect.txt",
+        "JD_Backend_Distributed_Systems.txt",
+        "JD_Mobile_App_Developer.txt",
+        "JD_Cybersecurity_DevSecOps.txt"
+    ]
+    parsed_jds = {}
+    for jd_file in all_jd_files:
+        jd_path = os.path.join(DATA_DIR, jd_file)
+        if os.path.exists(jd_path):
+            jd_doc = DocumentLoader.load_file(jd_path)
+            p_jd = JobDescriptionExtractor.extract_from_text(jd_doc["text"])
+            j_id = db.save_job_description(p_jd)
+            p_jd["id"] = j_id
+            parsed_jds[jd_file] = p_jd
+            print(f"[OK] Ingested Job Description: '{p_jd['job_title']}' (ID: {j_id})")
 
-    # Also parse remaining JDs into DB
-    for other_jd_file in ["JD_Full_Stack_Developer.txt", "JD_Data_Analyst.txt"]:
-        other_path = os.path.join(DATA_DIR, other_jd_file)
-        other_doc = DocumentLoader.load_file(other_path)
-        db.save_job_description(JobDescriptionExtractor.extract_from_text(other_doc["text"]))
+    parsed_jd = parsed_jds["JD_Senior_ML_Engineer.txt"]
+    jd_id = parsed_jd["id"]
 
-    # 3. Ingest and Screen all 15 Candidate Resumes
+    # 3. Ingest and Screen all 32 Candidate Resumes
     print("\n--- Ingesting and Screening Resumes ---")
     candidate_records = []
     all_prompt_experiment_records = []
     evaluation_benchmark_items = []
+    all_parsed_resumes = []
 
     for item in gt_data["candidates"]:
         cand_id = item["candidate_id"]
@@ -90,6 +101,7 @@ def run_full_benchmark():
         parsed_resume["candidate_id"] = cand_id
         parsed_resume["candidate_name"] = item["candidate_name"]
         db.save_resume(parsed_resume)
+        all_parsed_resumes.append(parsed_resume)
 
         # Screen against primary JD using all 3 paradigms
         classical_stats = baseline_screener.screen_candidate(parsed_jd, parsed_resume)
@@ -121,10 +133,30 @@ def run_full_benchmark():
 
         print(f"  Processed {cand_id} ({item['candidate_name']}) -> Baseline: {classical_stats['baseline_score']}, Semantic: {semantic_stats['semantic_score']}, LLM Composite: {scored_cand['overall_score']}")
 
-    # 4. Rank Candidates
+    # 4. Rank Candidates for Primary JD
     ranked_candidates = ranker.rank_candidates(candidate_records)
     db.save_screening_results(jd_id, ranked_candidates)
     db.save_experiment_results(all_prompt_experiment_records)
+
+    # Also pre-screen and rank candidates for other key catalog JDs so user can switch immediately
+    secondary_roles = [
+        "JD_Full_Stack_Developer.txt",
+        "JD_Data_Analyst.txt",
+        "JD_Cloud_DevOps_SRE.txt"
+    ]
+    for sec_file in secondary_roles:
+        if sec_file in parsed_jds:
+            sec_jd = parsed_jds[sec_file]
+            sec_scored = []
+            for res in all_parsed_resumes:
+                c_stat = baseline_screener.screen_candidate(sec_jd, res)
+                s_stat = semantic_screener.evaluate_semantic_fit(sec_jd, res)
+                l_stat = llm_extractor.analyze_candidate(sec_jd, res)
+                sc = ranker.score_candidate(sec_jd, res, s_stat, c_stat, l_stat)
+                sec_scored.append(sc)
+            sec_ranked = ranker.rank_candidates(sec_scored)
+            db.save_screening_results(sec_jd["id"], sec_ranked)
+            print(f"[OK] Pre-seeded rankings for '{sec_jd['job_title']}' (ID: {sec_jd['id']})")
 
     print("\n--- FINAL CANDIDATE LEADERBOARD ---")
     for c in ranked_candidates:
