@@ -175,6 +175,8 @@ class DatabaseManager:
                     c.get("explanation", "")
                 ))
             conn.commit()
+
+    def get_all_job_descriptions(self) -> List[Dict[str, Any]]:
         """Retrieve all stored job descriptions."""
         with self._get_connection() as conn:
             conn.row_factory = sqlite3.Row
@@ -249,31 +251,6 @@ class DatabaseManager:
                     "created_at": r["created_at"]
                 })
             return results
-
-    def save_screening_results(self, jd_id: int, ranked_candidates: List[Dict[str, Any]]):
-        """Save a batch of candidate screening ranking results."""
-        with self._get_connection() as conn:
-            cursor = conn.cursor()
-            for c in ranked_candidates:
-                cursor.execute("""
-                    INSERT INTO screening_results (
-                        jd_id, candidate_id, candidate_name, overall_score, rank_order,
-                        recommendation_badge, component_scores_json, matched_skills_json,
-                        missing_skills_json, explanation
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (
-                    jd_id,
-                    c.get("candidate_id"),
-                    c.get("candidate_name"),
-                    c.get("overall_score"),
-                    c.get("rank"),
-                    c.get("recommendation_badge"),
-                    json.dumps(c.get("component_scores", {})),
-                    json.dumps(c.get("matched_required_skills", [])),
-                    json.dumps(c.get("missing_required_skills", [])),
-                    c.get("explanation", "")
-                ))
-            conn.commit()
 
     def get_latest_screening_results(self, jd_id: Optional[int] = None) -> List[Dict[str, Any]]:
         """Retrieve latest screening ranking results for a specific JD or the most recently screened JD."""
